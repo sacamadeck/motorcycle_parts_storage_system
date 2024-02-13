@@ -14,17 +14,17 @@
 
 <body>
   <div class="container">
-    <form action="add-student.php" method="POST">
+    <form action="add-inventory.php" method="POST">
       <div class="row">
         <div class="col-lg-3"></div>
         <div class="col-lg-4">
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Product name:</label>
-            <input name="firstname" type="text" class="form-control" />
+            <input name="productname" type="text" class="form-control" />
           </div>
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Product Price:</label>
-            <input name="lastname" type="text" class="form-control" />
+            <input name="productprice" type="int" class="form-control" />
           </div>
 
           <div class="mb-3">
@@ -39,10 +39,10 @@
 
     <?php
     //create database connection
-    $conn = new mysqli("localhost", "dev", "devs", "motor_parts");
+    $conn = new mysqli("localhost", "motors", " ", "motor_parts");
 
     //construct sql state
-    $sql = 'SELECT * FROM motorpartsinventory';
+    $sql =  'SELECT * FROM motorpartsinventory';
 
     $result = $conn->query($sql);
     ?>
@@ -51,7 +51,6 @@
       <table class="table table-border">
         <thead>
           <tr>
-            <th scope="col">#</th>
             <th scope="col">Product name</th>
             <th scope="col">Product price</th>
             <th scope="col">Action</th>
@@ -64,13 +63,9 @@
 
           <?php while ($row = $result->fetch_assoc()): ?>
             <tr>
-              <td><?php echo $row['id'];  ?></td>
               <td><?php echo $row['productname'];  ?></td>
-              <td><?php echo $row['productid'];  ?></td>
+              <td><?php echo $row['productprice'];  ?></td>
               <td>
-                <a href="edit-student.php?id=<?php echo $row['id'];  ?>" class="btn btn-sm btn-info">Edit</a>
-                <a onclick="delete_student(<?php echo $row['id'];  ?>)" href="#" class="btn btn-sm btn-danger">Delete</a>
-              </td>
             </tr>
 
           <?php endwhile; ?>
@@ -90,15 +85,6 @@
 
 
 </body>
-
-<script>
-
-
-  function delete_student(id) {
-      if (confirm("Do you want to delete this data? ")){
-       swindow.location = "delete-student.php?id="+id;
-      }
-  }
 
       
 </script>
